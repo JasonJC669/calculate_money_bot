@@ -1,40 +1,45 @@
 class Calculate:
-    def __init__(self):
-        pass
+    def __init__(self, people):
+        self.people = people  # int(input("總共多少人"))
+        self.credit = [[0 for _ in range(self.people)]
+                       for _ in range(self.people)]
+        self.changeusername = {}
+        self.chosen = 0
+        self.changeid = {}
 
-    def calculate(self, credit):
+    def change(self, username):
+        if username in self.changeusername:
+            pass
+        else:
+            self.changeusername[username] = len(
+                self.changeusername) + 1
+            self.changeusername[username] -= 1
+        return self.changeusername[username]
+
+    def add(self, Alost, toB, money):
+        A = self.change(Alost)
+        B = self.change('@'+toB)
+        self.credit[A][B] = money
+
+    def calculate(self):
         """
         input: credit 一個二維陣列，全部人的借貸關係
         """
-        self.people = 4  # int(input("總共多少人"))
-        row = self.people
-        column = self.people
-        """
-        credit = [list(range(row)) for _ in range(column)]
-        for i in range(row):
-            for j in range(column):
-                if i != j:
-                    credit[i][j] = input(f"{i+1}號 要給 {j+1}號 多少錢？")
-                else:
-                    credit[i][j] = 0
-        """
-        # print(credit)
         sum = [0]*self.people
         for j in range(self.people):
             sum[j] = 0
-            for i in range(row):
-                sum[j] = sum[j] + int(credit[i][j])
-                sum[j] = sum[j] - int(credit[j][i])
-
-        self.chosen = 1  # int(input("選一個人（輸入號碼）："))
-        self.chosen = self.chosen - 1
-
+            for i in range(self.people):
+                sum[j] = sum[j] + int(self.credit[i][j])
+                sum[j] = sum[j] - int(self.credit[j][i])
         return sum
-        """
-        for i in range(self.people):
-            if i != chosen:
-                if sum[i] > 0:
-                    print(f"{chosen+1}號 要給 {i+1}號 {sum[i]}元")
-                else:
-                    print(f"{chosen+1}號 要拿 {i+1}號 {-sum[i]}元")
-        """
+
+    def setchosen(self, name):
+        self.chosen = self.change(name)
+
+    def getchosen(self):
+        return self.chosen
+
+    def getusername(self, userid):
+        self.changeid = dict((v, k) for k, v in self.changeusername.items())
+        print(self.changeid)
+        return self.changeid[userid]
