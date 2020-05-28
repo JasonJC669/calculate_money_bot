@@ -42,6 +42,9 @@ def lend(update, context):
         except KeyError:
             context.bot.send_message(
                 chat_id=update.effective_chat.id, text="機器人尚未啟動，請輸入/start來啟動機器人")
+        except IndexError:
+            context.bot.send_message(
+                chat_id=update.effective_chat.id, text="輸入的訊息不完整，請重新輸入")
 
 
 lend_handler = CommandHandler('lend', lend)
@@ -75,12 +78,12 @@ dispatcher.add_handler(getchosen_handler)
 
 def chose(update, context):
     id = update.effective_chat.id
-    if type(context.args[0]) != str:
-        getchosen(update, context)
-    else:
+    try:
         group[id].setchosen(context.args[0])
         context.bot.send_message(
             chat_id=update.effective_chat.id, text=f"已指定{context.args[0]}為主要支付或接收")
+    except:
+        getchosen(update, context)
 
 
 chose_handler = CommandHandler('chose', chose)
