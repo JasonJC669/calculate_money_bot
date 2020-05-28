@@ -92,7 +92,7 @@ def calculate(update, context):
     chosenone = group[id].getchosen()
     sum = group[id].calculate()
     try:
-        for i in range(group[id].people):  # i超過總借貸人數時會有KeyError
+        for i in range(group[id].people): 
             if i != chosenone:
                 if sum[i] > 0:
                     context.bot.send_message(
