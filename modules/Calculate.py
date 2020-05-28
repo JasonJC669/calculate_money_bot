@@ -1,4 +1,5 @@
 class Calculate:
+
     def __init__(self, people):
         self.people = people  # int(input("總共多少人"))
         self.credit = [[0 for _ in range(self.people)]
@@ -16,10 +17,10 @@ class Calculate:
             self.changeusername[username] -= 1
         return self.changeusername[username]
 
-    def add(self, Alost, toB, money):
+    def lend(self, Alost, toB, money):
         A = self.change(Alost)
         B = self.change('@'+toB)
-        self.credit[A][B] = money
+        self.credit[A][B] = self.credit[A][B] + int(money)
 
     def calculate(self):
         """
@@ -41,5 +42,8 @@ class Calculate:
 
     def getusername(self, userid):
         self.changeid = dict((v, k) for k, v in self.changeusername.items())
-        print(self.changeid)
         return self.changeid[userid]
+
+    def clear(self):
+        self.credit = [[0 for _ in range(self.people)]
+                       for _ in range(self.people)]
