@@ -75,7 +75,7 @@ dispatcher.add_handler(getchosen_handler)
 
 def chose(update, context):
     id = update.effective_chat.id
-    if context.args is not list:
+    if type(context.args[0]) != str:
         getchosen(update, context)
     else:
         group[id].setchosen(context.args[0])
