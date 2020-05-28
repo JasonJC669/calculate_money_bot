@@ -63,7 +63,7 @@ def getchosen(update, context):
     id = update.effective_chat.id
     try:
         context.bot.send_message(
-            chat_id=update.effective_chat.id, text=f"{group[id].getusername(group[id].getchosen())}為______")
+            chat_id=update.effective_chat.id, text=f"{group[id].getusername(group[id].getchosen())}為主要支付或接收的人")
     except:
         context.bot.send_message(
             chat_id=update.effective_chat.id, text="目前沒有任何資料喔！")
@@ -80,7 +80,7 @@ def chose(update, context):
     else:
         group[id].setchosen(context.args[0])
         context.bot.send_message(
-            chat_id=update.effective_chat.id, text=f"已將{context.args[0]}設為______")
+            chat_id=update.effective_chat.id, text=f"已指定{context.args[0]}為主要支付或接收")
 
 
 chose_handler = CommandHandler('chose', chose)
@@ -92,7 +92,7 @@ def calculate(update, context):
     chosenone = group[id].getchosen()
     sum = group[id].calculate()
     try:
-        for i in range(group[id].people): 
+        for i in range(group[id].people):
             if i != chosenone:
                 if sum[i] > 0:
                     context.bot.send_message(
@@ -109,7 +109,20 @@ dispatcher.add_handler(calculate_handler)
 
 
 def help(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text="您可以...")
+    context.bot.send_message(chat_id=update.effective_chat.id, text="""
+/start - 依照群組人數，開始紀錄
+/lend @username {money} 
+- 紀錄 傳送訊息的人 借給 @username {money}元
+/clear - 清除所有借貸關係，平倉
+/chose @username 
+- 指定 @username 為主要支付或接收的人，沒有輸入 @username 的話會顯示目前被指定的人
+/calculate - 計算出目前被指定人需要給予誰多少元以及向誰收取多少元
+/help - 列出所有可以輸入的指令以及其功用
+
+更多資訊：
+For more help please see the project's page on Github: 
+https://github.com/JasonJC669/calculate_money_bot
+""")
 
 
 help_handler = CommandHandler('help', help)
