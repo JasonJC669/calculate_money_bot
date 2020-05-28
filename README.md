@@ -15,7 +15,7 @@ ACCESS_TOKEN = ;在這裡放入 token
 WEBHOOK_URL = 
 ```
 ## 使用
-[Telegram Bot 連結](t.me/calculate_money_bot)
+[Telegram Bot 連結](t.me/calculate_money_bot)  
 加入群組後，可以輸入以下指令：
 ```
 /start - 依照群組人數，開始紀錄
@@ -44,7 +44,7 @@ ACCESS_TOKEN = ;put your token here
 WEBHOOK_URL = 
 ```
 ## How To Use
-[Money Calculate Telegram Bot](t.me/calculate_money_bot)
+[Money Calculate Telegram Bot](t.me/calculate_money_bot)  
 Put the bot in a chat, and you can type in the following commands to run the bot.
 ```
 /start - launch the bot and start accounting
