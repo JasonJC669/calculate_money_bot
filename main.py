@@ -10,7 +10,7 @@ config.read('config.ini')
 updater = Updater(
     token=(config['TELEGRAM']['ACCESS_TOKEN']), use_context=True)
 dispatcher = updater.dispatcher
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+logging.basicConfig(filename='bot.log', format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 
 group = {}
