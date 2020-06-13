@@ -21,7 +21,7 @@ def start(update, context):
     if id not in group:
         group[id] = Calculate.Calculate(number)
     context.bot.send_message(
-        chat_id=update.effective_chat.id, text="借貸機器人在此為您服務！")
+        chat_id=update.effective_chat.id, text="借貸機器人在此為您服務，記得提醒所有人要設置username喔！")
 
 
 start_handler = CommandHandler('start', start)
@@ -33,12 +33,16 @@ def lend(update, context):
     if update.effective_user.username is None:
         context.bot.send_message(
             chat_id=update.effective_chat.id, text="您沒有username，請填寫完username後再使用此機器人喔！")
+    elif context.args[0][0] != "@":
+        context.bot.send_message(
+            chat_id=update.effective_chat.id, text="您借錢的對象沒有username，請填寫完username後再使用此機器人喔！")
     else:
         try:
             group[id].lend(context.args[0],
                            update.effective_user.username, context.args[1])
             context.bot.send_message(
                 chat_id=update.effective_chat.id, text="已加入")
+            #fp = open("a.log", "a")
         except KeyError:
             context.bot.send_message(
                 chat_id=update.effective_chat.id, text="機器人尚未啟動，請輸入/start來啟動機器人")
@@ -76,18 +80,18 @@ getchosen_handler = CommandHandler('getchosen', getchosen)
 dispatcher.add_handler(getchosen_handler)
 
 
-def chose(update, context):
+def choose(update, context):
     id = update.effective_chat.id
     try:
         group[id].setchosen(context.args[0])
         context.bot.send_message(
-            chat_id=update.effective_chat.id, text=f"已指定{context.args[0]}為主要支付或接收")
+            chat_id=update.effective_chat.id, text=f"已指定 {context.args[0]} 為主要支付或接收")
     except:
         getchosen(update, context)
 
 
-chose_handler = CommandHandler('chose', chose)
-dispatcher.add_handler(chose_handler)
+choose_handler = CommandHandler('choose', choose)
+dispatcher.add_handler(choose_handler)
 
 
 def calculate(update, context):
