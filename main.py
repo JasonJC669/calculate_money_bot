@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from modules import Calculate
 import logging
