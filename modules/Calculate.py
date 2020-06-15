@@ -47,3 +47,4 @@ class Calculate:
     def clear(self):
         self.credit = [[0 for _ in range(self.people)]
                        for _ in range(self.people)]
+        self.changeusername.clear()
